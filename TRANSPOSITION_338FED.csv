@@ -5261,16 +5261,3 @@
 62,62001,"Nunavut",62001,"Nunavut",31906,31906,31906,"O.P.",100,1.0,26.0,26,17185,7276,3668,1420,2049,0,139,0
 62,62001,"Nunavut",62001,"Nunavut",31906,31906,31906,"SVR1",100,.,.,".",164,112,36,6,63,0,7,0
 62,62001,"Nunavut",62001,"Nunavut",31906,31906,31906,"SVR2",100,.,.,".",0,132,56,31,40,0,5,0
-
-"'"
-"Notes:"
-"Population 2011 source: Statistics Canada"
-"A.P.: Advance poll"
-"M.P.: Mobile poll"
-"O.P.: Ordinary poll"
-"SVR1: Includes Canadian citizens temporarily residing outside Canada, members of the Canadian Forces (except members of the"
-"Canadian Forces who voted at the polling station established for the polling division of their place of ordinary"
-"residence) and incarcerated electors."
-"SVR2: Includes Canadian citizens residing in Canada who voted by special ballot in or outside their electoral districts."
-"Electors on lists are shown as zero for A.P. and SVR2 as they are already included with the O.P."
-
