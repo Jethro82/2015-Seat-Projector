@@ -82,15 +82,9 @@ Sub InitializeRidings()
     Dim Discard$
     Dim TVotes&
     Open "TRANSP~1.CSV" For Input As #1
-    For RPCode = 1 To 6
-        Input #1, Regions(RPCode).RegionName
-    Next
-    For PartyCount = 0 To 5
-        Input #1, PartyNames(PartyCount)
-    Next
-
     Do
         Input #1, RPCode
+        Input #1,Discard$
         Input #1, TRidingName
         If RidingCount = -1 Then
             NewRiding = True
@@ -103,7 +97,7 @@ Sub InitializeRidings()
             P.Ridings(RidingCount).RidingName = TRidingName
         End If
         NewRiding = False
-        For DiscardFields = 3 To 13
+        For DiscardFields = 4 To 13
             Input #1, Discard
         Next
         For PartyCount = 0 To 5
