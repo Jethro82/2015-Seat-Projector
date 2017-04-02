@@ -33,7 +33,10 @@ Sub InitializeRidingsAndRegions()
         Input #1, PartyNames(FileCount - 1)
     Next
     Close #1
-    PrairieRegions = Int(InputBox("Number of Divsions in the Prairies"))
+    Do
+        PrairieRegions = Int(InputBox("Number of Divsions in the Prairies"))
+        If PrairieRegions < 1 Or PrairieRegions > 3 Then MsgBox ("Please Enter a number between 1 and 3 based on the number of regions in the polling data")
+    Loop While PrairieRegions < 1 Or PrairieRegions > 3
     Open "ProvincesMinMax.txt" For Input As #1
     
     For FileCount% = 2 To PrairieRegions
@@ -67,7 +70,7 @@ Function ReturnRegion%(x As Riding)
     Next
 End Function
 Sub GetRidings()
-    Open "LastElection.dat" For Random As #1 Len = 29040
+    Open "LastElection.dat" For Random As #1 Len = 28730
     Get #1, 1, P
     Close #1
 End Sub
@@ -117,7 +120,7 @@ Sub InitializeRidings()
         Line Input #1, Discard
     Loop Until EOF(1)
     Close #1
-    Open "LastElection.dat" For Random As #1 Len = 29040
+    Open "LastElection.dat" For Random As #1 Len = 28730
     Put #1, 1, P
     Close #1
 End Sub

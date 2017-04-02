@@ -9,7 +9,7 @@ Begin VB.Form Form1
    ScaleHeight     =   5505
    ScaleWidth      =   9630
    StartUpPosition =   3  'Windows Default
-   Begin VB.CheckBox Check2 
+   Begin VB.CheckBox chkEveryRiding 
       Caption         =   "&Riding by Riding(not to be taken seriously)"
       Height          =   735
       Left            =   120
@@ -116,7 +116,7 @@ Begin VB.Form Form1
       Top             =   0
       Width           =   735
    End
-   Begin VB.TextBox Text2 
+   Begin VB.TextBox txtTitle 
       Height          =   495
       Left            =   3720
       TabIndex        =   34
@@ -131,7 +131,7 @@ Begin VB.Form Form1
       Top             =   3120
       Width           =   1455
    End
-   Begin VB.CheckBox Check1 
+   Begin VB.CheckBox ChkProportional 
       Caption         =   "&Proportional Vote Swing"
       Height          =   495
       Left            =   1680
@@ -491,8 +491,9 @@ Private Sub Command1_Click()
     Dim ProportionalSwing As Boolean
     Dim TextBoxNo%
     Dim CurrRegion%
+    Dim RbyR As Boolean
     
-    ProportionalSwing = Check1
+    ProportionalSwing = ChkProportional
     For RegionCount% = 1 To LastRegion
         For PartyCount = 0 To 4
             TextBoxNo = (RegionCount - 1) * 5 + PartyCount
@@ -507,7 +508,14 @@ Private Sub Command1_Click()
             End If
         Next
     Next
-    If Check2 Then Open Text2 + ".csv" For Output As #3
+    If chkEveryRiding Then
+        If txtTitle = "" Then
+            MsgBox "You must specify a title/file name to produce riding by riding data"
+        Else
+            RbyR = True
+        End If
+    End If
+    If RbyR Then Open txtTitle + ".csv" For Output As #3
 
     For RidingCount = 0 To 334
         HighVote = 0
@@ -523,13 +531,13 @@ Private Sub Command1_Click()
             If CurrVote > HighVote Then HighVoteParty = PartyCount: HighVote = CurrVote
         Next
         SeatTotals(CurrRegion, HighVoteParty) = SeatTotals(CurrRegion, HighVoteParty) + 1
-        If Check2 Then
+        If RbyR Then
             Print #3, TRiding.RidingName; ","; PartyNames$(HighVoteParty)
         End If
     Next
-    If Check2 Then Close #3
+    If RbyR Then Close #3
     Open "projections.htm" For Append As #2
-    Print #2, "<Center>Seat Projections:"; Text2; "<br>"
+    Print #2, "<Center>Seat Projections:"; txtTitle; "<br>"
     Print #2, Date$; " - "; Time$; "<br></center>"
     Print #2, "<Table width=100%><td>"
     For RegionCount = 1 To LastRegion
