@@ -106,7 +106,6 @@ Sub InitializeRidings()
             P.Ridings(RidingCount).Region = Val(Left$(RidingCode, 2))
             P.Ridings(RidingCount).RidingName = TRidingName
         End If
-        If RidingCount > 245 And RidingCount < 250 Then MsgBox TRidingName + "**" + P.Ridings(RidingCount).RidingName
         NewRiding = False
         For DiscardFields = 5 To 6
             Input #1, Discard
