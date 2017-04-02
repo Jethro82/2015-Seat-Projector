@@ -1,0 +1,6 @@
+Maritimes,Quebec,Ontario,Prairies,B.C.
+10,14,    24,25, 35,36   ,46,49,  59,60
+Maritimes,Quebec,Ontario,MB./SK.,Alberta,B.C.
+10,14,    24,25, 35,36   ,46,47, 48,49,  59,60
+Maritimes,Quebec,Ontario,Manitoba,Saskatchewan,Alberta,B.C.
+10,14,    24,25, 35,36   ,46,46,  47,47,        48,49,  59,60
