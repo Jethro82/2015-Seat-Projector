@@ -491,8 +491,10 @@ Private Sub Command1_Click()
     Dim ProportionalSwing As Boolean
     Dim TextBoxNo%
     Dim CurrRegion%
+    Dim IncumbentParty%
+    Dim IncumbentVote&
     Dim RbyR As Boolean
-    
+    Dim PartyTotalSeats As Integer
     ProportionalSwing = ChkProportional
     For RegionCount% = 1 To LastRegion
         For PartyCount = 0 To 4
@@ -515,14 +517,23 @@ Private Sub Command1_Click()
             RbyR = True
         End If
     End If
-    If RbyR Then Open txtTitle + ".csv" For Output As #3
+    If RbyR Then
+        Open txtTitle + ".csv" For Output As #3
+        Print #3, "Projected Winner,Riding,Incumbent"
+    End If
 
     For RidingCount = 0 To 334
         HighVote = 0
-        HighVoteParty = 0
         TRiding = P.Ridings(RidingCount)
         CurrRegion = ReturnRegion(TRiding)
+        IncumbentVote = 0
         For PartyCount = 0 To 4
+            If RbyR Then
+                If TRiding.PartyVotes(PartyCount) > IncumbentVote Then
+                    IncumbentVote = TRiding.PartyVotes(PartyCount)
+                    IncumbentParty = PartyCount
+                End If
+            End If
             If ProportionalSwing Then
                 CurrVote = TRiding.PartyVotes(PartyCount) * VoteAdjustment(CurrRegion, PartyCount)
             Else
@@ -532,7 +543,7 @@ Private Sub Command1_Click()
         Next
         SeatTotals(CurrRegion, HighVoteParty) = SeatTotals(CurrRegion, HighVoteParty) + 1
         If RbyR Then
-            Print #3, TRiding.RidingName; ","; PartyNames$(HighVoteParty)
+            Print #3, PartyNames$(HighVoteParty); ","; TRiding.RidingName; ","; PartyNames$(IncumbentParty)
         End If
     Next
     If RbyR Then Close #3
@@ -543,12 +554,16 @@ Private Sub Command1_Click()
     For RegionCount = 1 To LastRegion
         Print #2, "<td>"; Trim(Regions(RegionCount).RegionName);
     Next
+    Print #2, "<td>Total(10 Provinces);"
     For PartyCount = 0 To 4
         Print #2, "<tr>"
         Print #2, "<td>"; PartyNames(PartyCount);
+        PartyTotalSeats = 0
         For RegionCount = 1 To LastRegion
             Print #2, "<td>"; SeatTotals(RegionCount, PartyCount);
+            PartyTotalSeats = PartyTotalSeats + SeatTotals(RegionCount, PartyCount)
         Next
+        Print #2, "<td>"; PartyTotalSeats;
     Next
     Print #2, "<tr></table>"
     Close #2
