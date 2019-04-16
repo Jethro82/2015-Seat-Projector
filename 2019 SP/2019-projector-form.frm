@@ -554,7 +554,7 @@ Private Sub Command1_Click()
     For RegionCount = 1 To LastRegion
         Print #2, "<td>"; Trim(Regions(RegionCount).RegionName);
     Next
-    Print #2, "<td>Total(10 Provinces);"
+    Print #2, "<td>Total(10 Provinces)";
     For PartyCount = 0 To 4
         Print #2, "<tr>"
         Print #2, "<td>"; PartyNames(PartyCount);
